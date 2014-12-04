@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
-var webpack = require('gulp-webpack');
 var jshint = require('gulp-jshint');
 
 var package = require('./package.json');
@@ -19,3 +18,4 @@ gulp.task('test', function (){
         .pipe(mocha({reporter: 'nyan'}));
 });
 
+gulp.task('default', ['lint', 'test', 'dist']);

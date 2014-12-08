@@ -23,7 +23,8 @@ executable yng
                        aeson,
                        bytestring,
                        text,
-                       http-types
+                       http-types,
+                       github
   hs-source-dirs:      src
   default-language:    Haskell2010
 

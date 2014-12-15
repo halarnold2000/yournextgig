@@ -10,6 +10,7 @@ import Yng.Types
 import qualified Github.Repos as G
 import Control.Monad.State.Lazy
 import Control.Applicative
+import Control.Exception (throw)
 
 main :: IO ()
 main = hspec spec
@@ -18,10 +19,18 @@ spec = do
     describe "Github API service" $ do
         it "allows us to get a GithubUser given a user handle if the github user exists" $ do
             let sampleHandle = "test-user"
-                expected = GithubUser { handle = sampleHandle, repositories = ["My awesome repo A", "My awesome repo B"] }
+                expected = Right $ GithubUser { handle = sampleHandle, repositories = ["My awesome repo A", "My awesome repo B"] }
                 mockGithubResponse = map githubRepoWithName ["My awesome repo A", "My awesome repo B"]
 
             let actual = evalState (findGithubUser sampleHandle) (MockResponse $ Right mockGithubResponse)
+            actual `shouldBe` expected
+
+        it "returns an error if an exception occurs in the github api" $ do
+            let sampleHandle = "some user that does not exist"
+                expected = Left GithubError
+                mockGithubError = G.ParseError "Error parsing json"
+
+            let actual = evalState (findGithubUser sampleHandle) (MockResponse $ Left mockGithubError)
             actual `shouldBe` expected
 
 -- Test helpers

@@ -10,7 +10,6 @@ import Yng.Types
 import qualified Github.Repos as G
 import Control.Monad.State.Lazy
 import Control.Applicative
-import Control.Exception (throw)
 
 main :: IO ()
 main = hspec spec

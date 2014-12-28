@@ -1,7 +1,11 @@
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 module Yng.Services.GithubService where
 
 import qualified Github.Repos as G
 import Control.Applicative
+import Web.Scotty
+import Control.Monad.IO.Class
 
 import Yng.Types
 
@@ -11,6 +15,9 @@ class (Monad m) => GithubMonad m where
 
 instance GithubMonad IO where
     userRepos = G.userRepos
+
+instance GithubMonad ActionM where
+    userRepos handle publicity = liftIO $ G.userRepos handle publicity
 
 findGithubUser :: (GithubMonad m) => String -> m (Either GithubError GithubUser)
 findGithubUser handle = do

@@ -5,7 +5,9 @@ import Web.Scotty
 import Network.Wai
 import Network.HTTP.Types
 
+import qualified Yng.Routes as Routes
+
 app :: IO Application
 app = scottyApp $ do
-    get "/" $ do
-        status status200
+    get "/" $ Routes.getRoot
+    get "/user/github/:handle" $ Routes.getGithubUser

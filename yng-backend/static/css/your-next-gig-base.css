@@ -1,0 +1,41 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("../images/coming-soon-bg.jpg");
+    height: 100%;
+}
+
+@font-face {
+    font-family: aqualinetwo;
+    src: url(../fonts/AquilineTwo.ttf);
+}
+
+.larger-text {
+    font-size: 3em;
+}
+
+.stylish-text {
+    font-family: aqualinetwo;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #FFFFFF;
+}
+
+.horizontal-line {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.page-center {
+    position: relative;
+    top: 50%;
+    height: 100%;
+}
+
+.mg-top-2x {
+    margin-top: 2em;
+}
+
+

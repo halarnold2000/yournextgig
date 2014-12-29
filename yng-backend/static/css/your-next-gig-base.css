@@ -3,8 +3,19 @@ html {
 }
 
 body {
-    background-image: url("../images/coming-soon-bg.jpg");
     height: 100%;
+}
+
+.background-image {
+    background-image: url("../images/coming-soon-bg.jpg");
+    background-size: contain;
+    height: auto;
+}
+
+.logo {
+    width: 23%;
+    box-sizing: border-box;
+    height: auto;
 }
 
 @font-face {
@@ -20,7 +31,7 @@ body {
     font-family: aqualinetwo;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, label, i {
     color: #FFFFFF;
 }
 

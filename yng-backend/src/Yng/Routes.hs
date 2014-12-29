@@ -11,7 +11,7 @@ import Yng.Services.GithubService
 import Yng.Types
 
 getRoot :: ActionM ()
-getRoot = status status200
+getRoot = file "./static/index.html"
 
 getGithubUser :: ActionM ()
 getGithubUser = param "handle" >>= findGithubUser >>= toJson

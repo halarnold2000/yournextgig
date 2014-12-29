@@ -10,11 +10,14 @@ cabal install
 ```
 
 If the install fails with a "Backjump limit reached" error, use
+```
 #!shell
 cabal install --max-backjumps=9999
 ```
 
 ##Get to the index page
+
+
 ```
 http://localhost:8080/
 ```

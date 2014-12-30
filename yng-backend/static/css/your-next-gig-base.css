@@ -9,11 +9,11 @@ body {
 .background-image {
     background-image: url("../images/coming-soon-bg.jpg");
     background-size: contain;
-    height: auto;
+    height: 100%;
 }
 
 .logo {
-    width: 23%;
+    width: 16%;
     box-sizing: border-box;
     height: auto;
 }
@@ -36,17 +36,28 @@ h1, h2, h3, h4, h5, label, i {
 }
 
 .horizontal-line {
-    border-bottom: 1px solid #FFFFFF;
+    border-bottom: 1px solid #BD7517;
 }
 
 .page-center {
-    position: relative;
-    top: 50%;
-    height: 100%;
+    margin-top: 10%;
 }
 
 .mg-top-2x {
     margin-top: 2em;
 }
 
+.mg-top-6x {
+    margin-top: 6em;
+}
 
+.rotate {
+    -webkit-transform: rotate(-16deg);
+    -moz-transform: rotate(-16deg);
+    -ms-transform: rotate(-16deg);
+    -o-transform: rotate(-16deg);
+}
+
+orange {
+    color: #BD7517;
+}

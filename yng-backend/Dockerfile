@@ -1,71 +1,72 @@
 FROM       ubuntu:12.04
+MAINTAINER Karun Ramakrishnan <karun.ramakrishnan@live.com>
 
-## custom apt-get install options
-ENV OPTS_APT        -y --no-install-recommends
+## Install haskell and basic deps
+ENV HOME /root
+ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /root
+RUN apt-get update
 
-## ensure locale is set during build
-ENV LANG            C.UTF-8
+RUN echo 'root:docker' |chpasswd
+RUN mkdir -p ${HOME}/.ssh/
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN apt-get install -y apt-utils
+RUN apt-get install -y wget libgmp3-dev build-essential
+RUN ln -s /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/libgmp.so.3
+RUN ln -s /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/libgmp.so
+RUN wget http://downloads.haskell.org/~ghc/7.8.1/ghc-7.8.1-x86_64-unknown-linux-deb7.tar.bz2 -O ghc-7.8.1.tar.bz2
+RUN tar xf ghc-7.8.1.tar.bz2 && rm ghc-7.8.1.tar.bz2
 
-## configure apt to use the haskell repository
-RUN echo 'deb     http://deb.haskell.org/stable/ ./' >> /etc/apt/sources.list.d/haskell.list\
- && echo 'deb-src http://deb.haskell.org/stable/ ./' >> /etc/apt/sources.list.d/haskell.list
+WORKDIR /root/ghc-7.8.1
+RUN ./configure
+RUN make install
+RUN rm -rf ghc-7.8.1
+WORKDIR /root
 
-## set ghc upstream package versions and ghc deb revisions
-ENV MAJOR_GHC       7.8
-ENV MINOR_GHC       .3
-ENV DEB_REV_GHC     -1
+RUN wget http://www.haskell.org/cabal/release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz
+RUN tar xf Cabal-1.20.0.0.tar.gz
+RUN rm Cabal-1.20.0.0.tar.gz
+WORKDIR Cabal-1.20.0.0
+RUN ghc --make Setup
+RUN ./Setup configure
+RUN ./Setup build
+RUN ./Setup install
+WORKDIR /root
+RUN rm -rf ./Cabal-1.20.0.0
 
-## install ghc
-RUN apt-get update\
- && apt-get install ${OPTS_APT}\
-      ghc-7.8.3="${MAJOR_GHC}""${MINOR_GHC}""${DEB_REV_GHC}"
-
-ENV MAJOR_ALEX      3.1
-ENV MAJOR_CABAL     1.20
-ENV MAJOR_HAPPY     1.19
-
-ENV MINOR_ALEX      .3
-ENV MINOR_CABAL     .0.3
-ENV MINOR_HAPPY     .4
-
-ENV DEB_REV_ALEX    -1
-ENV DEB_REV_CABAL   -1
-ENV DEB_REV_HAPPY   -1
-
-## install minimal set of haskell packages
-RUN apt-get update\
- && apt-get install ${OPTS_APT}\
-      alex="${MAJOR_ALEX}""${MINOR_ALEX}""${DEB_REV_ALEX}"\
-      cabal-install-"${MAJOR_CABAL}"="${MAJOR_CABAL}""${MINOR_CABAL}""${DEB_REV_CABAL}"\
-      happy="${MAJOR_HAPPY}""${MINOR_HAPPY}""${DEB_REV_HAPPY}"
-
-## set PATH for tools not installed to /usr/{bin,/local/bin}
-ENV PATH /opt/cabal/$MAJOR_CABAL/bin:$PATH
-ENV PATH /opt/ghc/$MAJOR_GHC$MINOR_GHC/bin:$PATH
-
-## install additional libs typically needed by hackage packages
-RUN apt-get update\
- && apt-get install ${OPTS_APT} zlib1g-dev libtinfo-dev
+RUN wget http://www.haskell.org/cabal/release/cabal-install-1.20.0.1/cabal-install-1.20.0.1.tar.gz
+RUN tar xf cabal-install-1.20.0.1.tar.gz
+RUN rm cabal-install-1.20.0.1.tar.gz
+WORKDIR cabal-install-1.20.0.1
+RUN apt-get install -y zlib1g-dev libtinfo-dev
+RUN ./bootstrap.sh
+ENV PATH $HOME/.cabal/bin:$PATH
+RUN echo "export PATH=~/.cabal/bin:$PATH" >> /root/.profile
+WORKDIR /root
+RUN rm -rf ./cabal-install-1.20.0.1
 
 ## get latest dependencies from hackage
 RUN cabal update
+
+RUN cabal install cabal-install
 
 ## prep for build
 ADD ./yng.cabal /app/yng/yng.cabal
 
 ## install dependencies as we will be building and running app from dist
-RUN cd /app/yng && cabal install --only-dependencies --max-backjumps=9999
+RUN cd /app/yng && cabal sandbox init && cabal clean && cabal install --only-dependencies --max-backjumps=9999
 
 ## explicitly add the folders we need
 ADD ./src /app/yng/src
 ADD ./static /app/yng/static
 
 ## build app
-RUN cd /app/yng && cabal build
+RUN cd /app/yng && cabal install
 
 ## expose port 80. Not sure if this is needed as beanstalk would have already exposed it
 EXPOSE 80
 
 ## run the app
 WORKDIR /app/yng
-CMD ["./dist/build/yng/yng"]
+CMD [".cabal-sandbox/bin/yng"]

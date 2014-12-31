@@ -1,5 +1,4 @@
-FROM       ubuntu:12.04
-MAINTAINER Karun Ramakrishnan <karun012@gmail.com>
+FROM       ubuntu.04
 
 ## custom apt-get install options
 ENV OPTS_APT        -y --no-install-recommends
@@ -21,17 +20,14 @@ RUN apt-get update\
  && apt-get install ${OPTS_APT}\
       ghc-7.8.3="${MAJOR_GHC}""${MINOR_GHC}""${DEB_REV_GHC}"
 
-## set upstream package versions (major-level) for remaining haskell packages
 ENV MAJOR_ALEX      3.1
 ENV MAJOR_CABAL     1.20
 ENV MAJOR_HAPPY     1.19
 
-## set upstream package versions (minor-level) for remaining haskell packages
 ENV MINOR_ALEX      .3
 ENV MINOR_CABAL     .0.3
 ENV MINOR_HAPPY     .4
 
-## set deb revisions for remaining haskell packages
 ENV DEB_REV_ALEX    -1
 ENV DEB_REV_CABAL   -1
 ENV DEB_REV_HAPPY   -1
@@ -44,8 +40,8 @@ RUN apt-get update\
       happy="${MAJOR_HAPPY}""${MINOR_HAPPY}""${DEB_REV_HAPPY}"
 
 ## set PATH for tools not installed to /usr/{bin,/local/bin}
-ENV PATH            /opt/cabal/$MAJOR_CABAL/bin:$PATH
-ENV PATH            /opt/ghc/$MAJOR_GHC$MINOR_GHC/bin:$PATH
+ENV PATH /opt/cabal/$MAJOR_CABAL/bin:$PATH
+ENV PATH /opt/ghc/$MAJOR_GHC$MINOR_GHC/bin:$PATH
 
 ## install additional libs typically needed by hackage packages
 RUN apt-get update\
@@ -55,21 +51,21 @@ RUN apt-get update\
 RUN cabal update
 
 ## prep for build
-ADD ./yng.cabal /opt/yng/yng.cabal
+ADD ./yng.cabal /app/yng/yng.cabal
 
 ## install dependencies as we will be building and running app from dist
-RUN cd /opt/yng && cabal install --only-dependencies --max-backjumps=9999
+RUN cd /app/yng && cabal install --only-dependencies --max-backjumps=9999
 
 ## explicitly add the folders we need
-ADD ./src /opt/yng/src
-ADD ./static /opt/yng/static
+ADD ./src /app/yng/src
+ADD ./static /app/yng/static
 
 ## build app
-RUN cd /opt/yng && cabal build
+RUN cd /app/yng && cabal build
 
 ## expose port 80. Not sure if this is needed as beanstalk would have already exposed it
 EXPOSE 80
 
 ## run the app
-WORKDIR /opt/yng
+WORKDIR /app/yng
 CMD ["./dist/build/yng/yng"]

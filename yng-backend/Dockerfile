@@ -1,4 +1,4 @@
-FROM       ubuntu.04
+FROM       ubuntu:12.04
 
 ## custom apt-get install options
 ENV OPTS_APT        -y --no-install-recommends

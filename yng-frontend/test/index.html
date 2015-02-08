@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset='UTF-8' />
+        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+
+        <title>QUnit Test Runner</title>
+
+        <link rel='stylesheet' href='../lib/qunit.css'>
+
+        <script src='../lib/jquery.js'></script>
+        <script src='../lib/underscore.js'></script>
+        <script src='../lib/sinon.js'></script>
+        <script src='../lib/qunit.js'></script>
+        <script type='text/javascript'>
+            QUnit.config.autostart = false;
+        </script>
+       
+        <script data-main='test-main.js' src='../require.js'></script>
+    </head>
+    <body>
+        <div id="qunit"></div> <!-- QUnit fills this with results, etc -->
+        <div id='qunit-fixture'>
+        </div>
+    </body>
+</html>

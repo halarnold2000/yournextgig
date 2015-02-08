@@ -1,21 +1,20 @@
 {
   "name": "your-next-gig",
-  "version": "0.0.0",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "immutable": "^2.0.17"
-  },
+  "version": "1.0.0",
   "devDependencies": {
-    "gulp": "^3.8.8",
-    "gulp-jshint": "^1.8.5",
-    "gulp-mocha": "~1.1.0",
-    "gulp-webpack": "^0.4.0",
-    "jshint-stylish": "^1.0.0",
-    "should": "^4.0.4"
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": ">=0.2.1",
+    "grunt-contrib-watch": ">=0.3.1",
+    "grunt-contrib-connect": "~0.5.0"
   },
-  "scripts": {
-    "test": "gulp test"
+  "maintainers": [
+    {
+      "name": "Karun Ramakrishnan",
+      "email": "karun012@gmail.com"
+    }
+  ],
+  "bugs": {
+    "mail": "karun012@gmail.com",
+    "url": ""
   }
 }

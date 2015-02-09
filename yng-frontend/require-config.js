@@ -8,7 +8,8 @@ var require = {
         'jsx': 'lib/jsx',
         'text': 'lib/text',
         'react': 'lib/react',
-        'http': 'lib/json-over-http'
+        'http': 'lib/json-over-http',
+        'sinon': 'lib/sinon'
     },
     jsx: {
         fileExtension: '.jsx',

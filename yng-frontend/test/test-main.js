@@ -4,11 +4,15 @@
     require.config({
         baseUrl: '../',
         paths: {
-            react: 'lib/react',
-            underscore: 'lib/underscore',
-            jquery: 'lib/jquery',
-            text: 'lib/text',
-            sinon: 'lib/sinon'
+            'jquery': 'lib/jquery',
+            'underscore': 'lib/underscore',
+            'underscore.string': 'lib/underscore.string',
+            'JSXTransformer': 'lib/JSXTransformer',
+            'jsx': 'lib/jsx',
+            'text': 'lib/text',
+            'react': 'lib/react',
+            'http': 'lib/json-over-http',
+            'sinon': 'lib/sinon'
         },
         shim: {
             'underscore': {
@@ -23,6 +27,10 @@
             'sinon': {
                 exports: 'sinon'
             }
+        },
+        jsx: {
+            fileExtension: '.jsx',
+            sourceMap: true
         }
     });
     var testModules = [

@@ -1,0 +1,63 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.background-image {
+    background-image: url("../images/coming-soon-bg.jpg");
+    background-size: contain;
+    height: 100%;
+}
+
+.logo {
+    width: 16%;
+    box-sizing: border-box;
+    height: auto;
+}
+
+@font-face {
+    font-family: aqualinetwo;
+    src: url(../fonts/AquilineTwo.ttf);
+}
+
+.larger-text {
+    font-size: 3em;
+}
+
+.stylish-text {
+    font-family: aqualinetwo;
+}
+
+h1, h2, h3, h4, h5, label, i {
+    color: #FFFFFF;
+}
+
+.horizontal-line {
+    border-bottom: 1px solid #BD7517;
+}
+
+.page-center {
+    margin-top: 10%;
+}
+
+.mg-top-2x {
+    margin-top: 2em;
+}
+
+.mg-top-6x {
+    margin-top: 6em;
+}
+
+.rotate {
+    -webkit-transform: rotate(-16deg);
+    -moz-transform: rotate(-16deg);
+    -ms-transform: rotate(-16deg);
+    -o-transform: rotate(-16deg);
+}
+
+orange {
+    color: #BD7517;
+}

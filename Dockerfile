@@ -52,14 +52,20 @@ RUN cabal update
 RUN cabal install cabal-install
 
 ## prep for build
-ADD ./yng.cabal /app/yng/yng.cabal
+ADD ./yng-backend/yng.cabal /app/yng/yng.cabal
 
 ## install dependencies as we will be building and running app from dist
 RUN cd /app/yng && cabal sandbox init && cabal clean && cabal install --only-dependencies --max-backjumps=9999
 
 ## explicitly add the folders we need
-ADD ./src /app/yng/src
-ADD ./static /app/yng/static
+ADD ./yng-backend/src /app/yng/src
+ADD ./yng-frontend/lib /app/yng/static/lib
+ADD ./yng-frontend/src/js /app/yng/static/js
+ADD ./yng-frontend/require.* /app/yng/static
+ADD ./yng-frontend/src/index.html /app/yng/static
+ADD ./yng-frontend/css /app/yng/static/
+ADD ./yng-frontend/fonts /app/yng/static/
+ADD ./yng-frontend/images /app/yng/static/
 
 ## build app
 RUN cd /app/yng && cabal install

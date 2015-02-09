@@ -1,3 +1,4 @@
+/*global define, module, test, equal */
 define([
         'jsx!src/js/app', 
         'react',
@@ -10,14 +11,17 @@ define([
             var simulateClick = React.addons.TestUtils.Simulate.click;
             var keyDown = React.addons.TestUtils.Simulate.keyDown;
             
-            var ajaxSpy;
+            var ajaxStub;
+            var ajaxDeferred;
 
             module('AppTest', {
                 setup: function () {
-                    ajaxSpy = sinon.spy($, 'ajax');
+                    ajaxStub = sinon.stub($, 'ajax');
+                    ajaxDeferred = $.Deferred();
+                    ajaxStub.returns(ajaxDeferred);
                 },
                 teardown: function () {
-                    ajaxSpy.restore();
+                    ajaxStub.restore();
                 }
             });
 
@@ -35,8 +39,28 @@ define([
 
                 keyDown(searchBar, { key: 'Enter'});
 
-                equal(ajaxSpy.callCount, 1, 'should have made an ajax call');
-                equal(ajaxSpy.firstCall.args[0].url, '/user/github/sampleHandle', 'should have made an ajax call to the right resource');
-                equal(ajaxSpy.firstCall.args[0].type, 'GET', 'should have made a GET request');
+                equal(ajaxStub.callCount, 1, 'should have made an ajax call');
+                equal(ajaxStub.firstCall.args[0].url, '/user/github/sampleHandle', 'should have made an ajax call to the right resource');
+                equal(ajaxStub.firstCall.args[0].type, 'GET', 'should have made a GET request');
+            });
+
+            test('search bar component forwards search results to the searchResults callback', function () {
+                var app = new App();
+                var SearchBar = app.searchBar;
+                var searchResults = [];
+                var searchResultsCallback = function (results) {
+                    searchResults.push(results);
+                };
+                var component = React.createElement(SearchBar, {searchResultsCallback: searchResultsCallback}); 
+                var renderedComponent = renderIntoDocument(component);
+
+                var searchBar = renderedComponent.refs.searchBar.getDOMNode();
+
+                simulateChange(searchBar, { target : { value : 'sampleHandle' } });
+                keyDown(searchBar, { key: 'Enter'});
+                ajaxDeferred.resolve({ sampleField: "sampleData" }, '200');
+
+                equal(searchResults.length, 1);
+                deepEqual(searchResults[0], { sampleField: "sampleData" });
             });
 });

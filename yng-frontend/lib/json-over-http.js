@@ -6,17 +6,10 @@ define(['jquery'], function ($) {
         method = options.method;
         body = JSON.stringify(options.body);
         deferred = $.Deferred();
-        $.ajax({
+        return $.ajax({
             url: uri, 
             type: method, 
             data: body
-        }).done(function (data, textStatus, jqXHR) {
-            var createdAt;
-            if (jqXHR.getResponseHeader("Location")) {
-                createdAt = jqXHR.getResponseHeader("Location");
-            }
-            deferred.resolve(data, createdAt);
         });
-        return deferred.promise();
     };
 });

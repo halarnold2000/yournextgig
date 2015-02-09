@@ -11,6 +11,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             this.setState({ handle: event.target.value });
         },
         handleKeyDown: function (event) {
+            var self = this;
             if (event.key !== "Enter") {
                 return;
             }
@@ -18,6 +19,8 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             http({
                 uri: _s.sprintf('/user/github/%s', this.state.handle),
                 method: 'GET'
+            }).done(function (data) {
+                self.props.searchResultsCallback(data);
             });
         },
         render: function () {

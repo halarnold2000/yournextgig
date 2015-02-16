@@ -67,16 +67,15 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
         },
         render: function () {
             return <section>
-                <SearchBar searchResultsCallback={this.refreshProjectList}/>
-                <ProjectList data={this.state.data}/>
-            <section>;
+                <SearchBar searchResultsCallback={this.refreshProjectList} />
+                <ProjectList data={this.state.data} />
+            </section>;
         }
     });
 
     var app = function app(parameters) {
         var mount = parameters.mount;
-        var yng = <App/>;
-        React.render(yng, mount);
+        React.render(<App/>, mount);
         return {
             searchBar: SearchBar,
     	    projectList: ProjectList,

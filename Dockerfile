@@ -9,8 +9,6 @@ RUN apt-get update
 
 RUN echo 'root:docker' |chpasswd
 RUN mkdir -p ${HOME}/.ssh/
-RUN apt-get install -y openssh-server
-RUN mkdir /var/run/sshd
 RUN apt-get install -y apt-utils
 RUN apt-get install -y wget libgmp3-dev build-essential
 RUN ln -s /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/libgmp.so.3

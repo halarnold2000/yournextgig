@@ -10,6 +10,7 @@ define([
             var simulateChange = React.addons.TestUtils.Simulate.change;
             var simulateClick = React.addons.TestUtils.Simulate.click;
             var keyDown = React.addons.TestUtils.Simulate.keyDown;
+            var find = React.addons.TestUtils.scryRenderedDOMComponentsWithClass;
             
             var ajaxStub;
             var ajaxDeferred;
@@ -62,5 +63,18 @@ define([
 
                 equal(searchResults.length, 1);
                 deepEqual(searchResults[0], { sampleField: "sampleData" });
+            });
+
+            test('project list renders when it gets data', function () {
+                var app = new App();
+                var ProjectList = app.projectList;
+		var data = ["project a", "project b"];
+                var component = React.createElement(ProjectList, {data: data});
+                var renderedComponent = renderIntoDocument(component);
+
+                var projectList = renderedComponent.refs.projectList.getDOMNode();
+
+		var projects = find(renderedComponent, 'project');
+		equal(projects.length, 2, 'should have rendered two projects');
             });
 });

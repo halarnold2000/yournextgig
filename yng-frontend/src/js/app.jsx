@@ -30,48 +30,37 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
         }
     });
 
+    var Project = React.createClass({
+        getInitialState: function () {
+            return this.props;
+        },
+        render: function () {
+            return <li className='project'>{this.state.text}</li>;
+        }
+    });
+
+    var ProjectList = React.createClass({
+        getInitialState: function () {
+            return { data: [] };
+        },
+        render: function () {
+            var id = 0;
+            var projects = this.props.data.map(function (project) {
+                id++;
+                console.log(project);
+                return <Project key={id} id={id} text={project} />;
+            });
+            return <ul ref='projectList' className='project-list'>{projects}</ul>;
+        }
+    });
+
     var app = function app(parameters) {
         return {
-            searchBar: SearchBar
+            searchBar: SearchBar,
+	    projectList: ProjectList
         };
     };
 
     return app;
 });
-/*
- * {
-        handle: "karun012",
-        repositories: [
-            "ishtar",
-            "backbone-connect-four",
-            "bslider",
-            "cabal-scripts",
-            "cis194",
-            "course",
-            "creddit",
-            "doctest-discover",
-            "dotfiles",
-            "es-monitor",
-            "experiments",
-            "frozen-fire",
-            "gnome-shell-extension-prototype",
-            "haskellconcepts",
-            "haskellcourse",
-            "haskellcourse-notes",
-            "invisiblepixel",
-            "kivuli",
-            "oshaberi",
-            "projecteuler-haskell",
-            "scotty-todo-sample",
-            "scraper",
-            "select2",
-            "shadower",
-            "substitutor",
-            "tetrix.scala",
-            "timedspecs",
-            "transmat",
-            "vim-scala",
-            "javascript-todo-samples"
-        ]
-   }
- */
+

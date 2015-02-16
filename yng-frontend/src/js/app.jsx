@@ -54,10 +54,26 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
         }
     });
 
+    var App = React.createClass({
+        getInitialState: function () {
+            return { data: [] };
+        },
+        refreshProjectList: function (data) {
+            this.state.data.push(data.repositories);
+        },
+        render: function () {
+            return <section>
+                <SearchBar searchResultsCallback={this.refreshProjectList}></SearchBar>
+                <ProjectList data={this.state.data}></ProjectList>
+            <section>;
+        }
+    });
+
     var app = function app(parameters) {
         return {
             searchBar: SearchBar,
-	    projectList: ProjectList
+	    projectList: ProjectList,
+            app: App
         };
     };
 

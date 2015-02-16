@@ -59,8 +59,9 @@ RUN cd /app/yng && cabal sandbox init && cabal clean && cabal install --only-dep
 ADD ./yng-backend/src /app/yng/src
 ADD ./yng-frontend/lib /app/yng/static/lib
 ADD ./yng-frontend/src/js /app/yng/static/js
-ADD ./yng-frontend/require.* /app/yng/static
-ADD ./yng-frontend/src/index.html /app/yng/static
+ADD ./yng-frontend/require.js /app/yng/static/require.js
+ADD ./yng-frontend/require-config.js /app/yng/static/require-config.js
+ADD ./yng-frontend/src/index.html /app/yng/static/index.html
 ADD ./yng-frontend/css /app/yng/static/
 ADD ./yng-frontend/fonts /app/yng/static/
 ADD ./yng-frontend/images /app/yng/static/

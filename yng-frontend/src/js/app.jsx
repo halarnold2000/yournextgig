@@ -59,20 +59,27 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             return { data: [] };
         },
         refreshProjectList: function (data) {
-            this.state.data.push(data.repositories);
+            var copyArray = function (arr1, arr2) {
+                arr1.push.apply(arr1, arr2);
+            };
+            copyArray(this.state.data, data.repositories);
+            this.setState(this.state);
         },
         render: function () {
             return <section>
-                <SearchBar searchResultsCallback={this.refreshProjectList}></SearchBar>
-                <ProjectList data={this.state.data}></ProjectList>
+                <SearchBar searchResultsCallback={this.refreshProjectList}/>
+                <ProjectList data={this.state.data}/>
             <section>;
         }
     });
 
     var app = function app(parameters) {
+        var mount = parameters.mount;
+        var yng = <App/>;
+        React.render(yng, mount);
         return {
             searchBar: SearchBar,
-	    projectList: ProjectList,
+    	    projectList: ProjectList,
             app: App
         };
     };

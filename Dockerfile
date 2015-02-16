@@ -62,9 +62,9 @@ ADD ./yng-frontend/src/js /app/yng/static/js
 ADD ./yng-frontend/require.js /app/yng/static/require.js
 ADD ./yng-frontend/require-config.js /app/yng/static/require-config.js
 ADD ./yng-frontend/src/index.html /app/yng/static/index.html
-ADD ./yng-frontend/css /app/yng/static/
-ADD ./yng-frontend/fonts /app/yng/static/
-ADD ./yng-frontend/images /app/yng/static/
+ADD ./yng-frontend/css /app/yng/static/css
+ADD ./yng-frontend/fonts /app/yng/static/fonts
+ADD ./yng-frontend/images /app/yng/static/images
 
 ## build app
 RUN cd /app/yng && cabal install

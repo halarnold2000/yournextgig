@@ -22,16 +22,16 @@ RUN make install
 RUN rm -rf ghc-7.8.1
 WORKDIR /root
 
-RUN wget http://www.haskell.org/cabal/release/cabal-1.20.0.0/Cabal-1.20.0.0.tar.gz
-RUN tar xf Cabal-1.20.0.0.tar.gz
-RUN rm Cabal-1.20.0.0.tar.gz
-WORKDIR Cabal-1.20.0.0
+RUN wget http://www.haskell.org/cabal/release/cabal-1.22.0.0/Cabal-1.22.0.0.tar.gz
+RUN tar xf Cabal-1.22.0.0.tar.gz
+RUN rm Cabal-1.22.0.0.tar.gz
+WORKDIR Cabal-1.22.0.0
 RUN ghc --make Setup
 RUN ./Setup configure
 RUN ./Setup build
 RUN ./Setup install
 WORKDIR /root
-RUN rm -rf ./Cabal-1.20.0.0
+RUN rm -rf ./Cabal-1.22.0.0
 
 RUN wget http://www.haskell.org/cabal/release/cabal-install-1.22.0.0/cabal-install-1.22.0.0.tar.gz
 RUN tar xf cabal-install-1.22.0.0.tar.gz

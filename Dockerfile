@@ -33,16 +33,16 @@ RUN ./Setup install
 WORKDIR /root
 RUN rm -rf ./Cabal-1.20.0.0
 
-RUN wget http://www.haskell.org/cabal/release/cabal-install-1.20.0.1/cabal-install-1.20.0.1.tar.gz
-RUN tar xf cabal-install-1.20.0.1.tar.gz
-RUN rm cabal-install-1.20.0.1.tar.gz
-WORKDIR cabal-install-1.20.0.1
+RUN wget http://www.haskell.org/cabal/release/cabal-install-1.22.0.0/cabal-install-1.22.0.0.tar.gz
+RUN tar xf cabal-install-1.22.0.0.tar.gz
+RUN rm cabal-install-1.22.0.0.tar.gz
+WORKDIR cabal-install-1.22.0.0
 RUN apt-get install -y zlib1g-dev libtinfo-dev
 RUN ./bootstrap.sh
 ENV PATH $HOME/.cabal/bin:$PATH
 RUN echo "export PATH=~/.cabal/bin:$PATH" >> /root/.profile
 WORKDIR /root
-RUN rm -rf ./cabal-install-1.20.0.1
+RUN rm -rf ./cabal-install-1.22.0.0
 
 ## get latest dependencies from hackage
 RUN cabal update

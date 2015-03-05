@@ -44,16 +44,11 @@ RUN echo "export PATH=~/.cabal/bin:$PATH" >> /root/.profile
 WORKDIR /root
 RUN rm -rf ./cabal-install-1.22.0.0
 
-## get latest dependencies from hackage
-RUN cabal update
-
-RUN cabal install cabal-install
-
 ## prep for build
 ADD ./yng-backend/yng.cabal /app/yng/yng.cabal
 
 ## install dependencies as we will be building and running app from dist
-RUN cd /app/yng && cabal sandbox init && cabal clean && cabal install --only-dependencies --max-backjumps=9999
+RUN cd /app/yng && cabal sandbox init && cabal clean && cabal install --only-dependencies --max-backjumps=9999 -j8
 
 ## explicitly add the folders we need
 ADD ./yng-backend/src /app/yng/src
@@ -67,7 +62,7 @@ ADD ./yng-frontend/fonts /app/yng/static/fonts
 ADD ./yng-frontend/images /app/yng/static/images
 
 ## build app
-RUN cd /app/yng && cabal install
+RUN cd /app/yng && cabal install -j8
 
 ## expose port 80. Not sure if this is needed as beanstalk would have already exposed it
 EXPOSE 80

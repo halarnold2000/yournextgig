@@ -13,17 +13,13 @@
         <div class="container-fluid">
             <div class="page-center">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div class="application"></div>
-                                <script type="text/javascript">
-                                    require(['jsx!js/app', 'react'], function (App, React) {
-                                        var mount = document.getElementsByClassName('application')[0];
-                                        var yng = new App({mount: mount});
-                                    });
-                                </script>
-                        </div>
-                    </div>
+                    <div class="col-xs-12 application"></div>
+                        <script type="text/javascript">
+                            require(['jsx!js/app', 'react'], function (App, React) {
+                                var mount = document.getElementsByClassName('application')[0];
+                                var yng = new App({mount: mount});
+                            });
+                        </script>
                 </div>
             </div>
         </div>

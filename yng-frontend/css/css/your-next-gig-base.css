@@ -1,0 +1,130 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+.background-image {
+    background-image: url("../images/coming-soon-bg.jpg");
+    background-size: contain;
+    height: 100%;
+}
+
+.logo {
+    width: 16%;
+    box-sizing: border-box;
+    height: auto;
+}
+
+@font-face {
+    font-family: aqualinetwo;
+    src: url(../fonts/AquilineTwo.ttf);
+}
+
+.larger-text {
+    font-size: 3em;
+}
+
+.stylish-text {
+    font-family: aqualinetwo;
+}
+
+h1, h2, h3, h4, h5, label, i {
+    color: #FFFFFF;
+}
+
+.horizontal-line {
+    border-bottom: 1px solid #BD7517;
+}
+
+.page-center {
+    margin-top: 5%;
+}
+
+.mg-top-2x {
+    margin-top: 2em;
+}
+
+.mg-top-6x {
+    margin-top: 6em;
+}
+
+.rotate {
+    -webkit-transform: rotate(-16deg);
+    -moz-transform: rotate(-16deg);
+    -ms-transform: rotate(-16deg);
+    -o-transform: rotate(-16deg);
+}
+
+orange {
+    color: #BD7517;
+}
+
+.header {
+    background-color: #4C749B;
+    height: 22em;
+}
+
+.project-list {
+    margin-top: 1em;
+}
+
+/* List styles */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 55%;
+}
+
+li {
+    font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+    border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+    border: none;
+}
+
+li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+li a:hover {
+    font-size: 26px;
+    background: #f6f6f6;
+    text-decoration: none;
+}
+
+/* Search bar */
+#search {
+
+}
+
+#search input[type="text"] {
+    background: no-repeat 10px 6px #4C749B;
+    border: 0 none;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: #FFFFFF;
+    height: 3em;
+    width: 55%;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+}

@@ -25,7 +25,9 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
         },
         render: function () {
             return <div>
-                       <input ref="searchBar" value={this.state.handle} type="text" onChange={this.textUpdated} onKeyDown={this.handleKeyDown}/>
+                <div id="search">
+                      <input ref="searchBar" value={this.state.handle} type="text" onChange={this.textUpdated} onKeyDown={this.handleKeyDown} placeholder="Search for people" />
+                </div>
             </div>;
         }
     });
@@ -35,7 +37,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             return this.props;
         },
         render: function () {
-            return <li className='project'>{this.state.text}</li>;
+            return <li className='project'><a>{this.state.text}</a></li>;
         }
     });
 
@@ -50,7 +52,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
                 console.log(project);
                 return <Project key={id} id={id} text={project} />;
             });
-            return <ul ref='projectList' className='project-list'>{projects}</ul>;
+            return <ul ref='projectList' className='project-list list-unstyled'>{projects}</ul>;
         }
     });
 
@@ -66,9 +68,21 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             this.setState(this.state);
         },
         render: function () {
-            return <section>
-                <SearchBar searchResultsCallback={this.refreshProjectList} />
-                <ProjectList data={this.state.data} />
+            return <section className="row">
+                <div className="col-xs-12">
+                    <div className="row">
+                        <div className="col-xs-9 col-xs-offset-3">
+                            <SearchBar searchResultsCallback={this.refreshProjectList} />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xs-12">
+                    <div className="row">
+                        <div className="col-xs-9 col-xs-offset-3">
+                            <ProjectList data={this.state.data} />
+                        </div>
+                    </div>
+                </div>
             </section>;
         }
     });

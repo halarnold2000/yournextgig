@@ -26,7 +26,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
         render: function () {
             return <div>
                 <div id="search">
-                      <input ref="searchBar" value={this.state.handle} type="text" onChange={this.textUpdated} onKeyDown={this.handleKeyDown} size="140" placeholder="Search..." />
+                      <input ref="searchBar" value={this.state.handle} type="text" onChange={this.textUpdated} onKeyDown={this.handleKeyDown} placeholder="Search for people" />
                 </div>
             </div>;
         }
@@ -37,7 +37,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
             return this.props;
         },
         render: function () {
-            return <li className='project'>{this.state.text}</li>;
+            return <li className='project'><a>{this.state.text}</a></li>;
         }
     });
 
@@ -52,7 +52,7 @@ define(['react', 'http', 'underscore', 'underscore.string'], function (React, ht
                 console.log(project);
                 return <Project key={id} id={id} text={project} />;
             });
-            return <ul ref='projectList' className='project-list'>{projects}</ul>;
+            return <ul ref='projectList' className='project-list list-unstyled'>{projects}</ul>;
         }
     });
 
